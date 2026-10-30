@@ -10,12 +10,13 @@ import { ThemeProvider, useTheme } from './src/theme';
 import { CenteredLoading, Screen } from './src/components/ui';
 import AuthScreen from './src/screens/AuthScreen';
 import TodayScreen from './src/screens/TodayScreen';
+import StatsScreen from './src/screens/StatsScreen';
 import HabitDetailScreen from './src/screens/HabitDetailScreen';
 import AddHabitScreen from './src/screens/AddHabitScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
 function TabIcon({ name, color }: { name: string; color: string }) {
-  const icons: Record<string, string> = { Today: '\u2713', Settings: '\u2699' };
+  const icons: Record<string, string> = { Today: '\u2713', Stats: '\uD83D\uDCCA', Settings: '\u2699' };
   return <Text style={{ fontSize: 18, color }}>{icons[name] ?? '\u25CF'}</Text>;
 }
 
@@ -31,6 +32,7 @@ function MainTabs({ onSignedOut }: { onSignedOut: () => void }) {
       })}
     >
       <Tabs.Screen name="Today" component={TodayScreen} />
+      <Tabs.Screen name="Stats" component={StatsScreen} />
       <Tabs.Screen name="Settings">
         {() => <SettingsScreen onSignedOut={onSignedOut} />}
       </Tabs.Screen>

@@ -2,7 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { api, localToday } from '../api';
-import { Card, CenteredLoading, ErrorBox, Screen, Title } from '../components/ui';
+import { BackHeader } from '../components/BackHeader';
+import { Card, CenteredLoading, ErrorBox, Screen } from '../components/ui';
+import { Text as RNText, TouchableOpacity } from 'react-native';
 import { monthGrid } from '../heatmap';
 import { useTheme } from '../theme';
 
@@ -17,7 +19,7 @@ interface Stats {
 
 const WEEKDAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
-export default function HabitDetailScreen({ route }: any) {
+export default function HabitDetailScreen({ route, navigation }: any) {
   const { habitId, name, color } = route.params;
   const { colors } = useTheme();
   const [stats, setStats] = useState<Stats | null>(null);
@@ -39,8 +41,11 @@ export default function HabitDetailScreen({ route }: any) {
 
   return (
     <Screen>
-      <Title>{name}</Title>
+      <BackHeader title={name} />
       {error ? <ErrorBox message={error} /> : null}
+      <TouchableOpacity onPress={() => navigation.navigate('AddHabit', { habit: stats ?? { id: habitId, name, color } })}>
+        <RNText style={{ color: colors.accent, fontWeight: '700', marginBottom: 10 }}>Edit habit</RNText>
+      </TouchableOpacity>
       <Card>
         <Text style={{ fontSize: 34, fontWeight: '800', color }}>{stats?.currentStreak ?? 0} days</Text>
         <Text style={{ color: colors.textMuted }}>Current streak · best {stats?.bestStreak ?? 0}</Text>
