@@ -58,11 +58,11 @@ export default function StatsScreen() {
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
                 <Text style={{ color: colors.textMuted }}>Current streak</Text>
-                <Text style={{ color: colors.text, fontWeight: '600' }}>{item.currentStreak} days</Text>
+                <Text style={{ color: colors.text, fontWeight: '600' }}>{item.currentStreak} {item.currentStreak === 1 ? 'day' : 'days'}</Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
                 <Text style={{ color: colors.textMuted }}>Best streak</Text>
-                <Text style={{ color: colors.text, fontWeight: '600' }}>{item.bestStreak} days</Text>
+                <Text style={{ color: colors.text, fontWeight: '600' }}>{item.bestStreak} {item.bestStreak === 1 ? 'day' : 'days'}</Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
                 <Text style={{ color: colors.textMuted }}>Done this week</Text>

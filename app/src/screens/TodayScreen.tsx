@@ -60,7 +60,7 @@ export default function TodayScreen({ navigation }: any) {
         {habits === null ? (
           <CenteredLoading />
         ) : habits.length === 0 ? (
-          <EmptyState title="No habits yet" hint="Tap + to add your first habit." />
+          <EmptyState title="No habits yet" hint="Tap + to add your first habit. Swipe right or press and hold to mark one done." />
         ) : (
           <FlatList
             data={habits}
@@ -68,7 +68,12 @@ export default function TodayScreen({ navigation }: any) {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await load(); setRefreshing(false); }} />}
             renderItem={({ item }) => (
               <Swipeable renderRightActions={() => renderRight(item)} onSwipeableOpen={() => complete(item)}>
-                <TouchableOpacity onPress={() => navigation.navigate('HabitDetail', { habitId: item.id, name: item.name, color: item.color })}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('HabitDetail', { habitId: item.id, name: item.name, color: item.color })}
+                    onLongPress={() => complete(item)}
+                    delayLongPress={400}
+                    accessibilityLabel={`${item.name}, ${item.doneToday ? 'done' : 'not done'}. Swipe right or press and hold to complete.`}
+                  >
                   <View style={{
                     flexDirection: 'row', alignItems: 'center', padding: 14, marginBottom: 10,
                     borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1,
