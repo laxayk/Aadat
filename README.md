@@ -1,5 +1,11 @@
 # Aadat
 
+<p align="center">
+  <a href="demo/demo.mp4"><img src="demo/demo.gif" alt="Aadat demo" width="300"></a>
+</p>
+
+Demo walkthrough: sign up, add habits, see streaks, press and hold to complete a habit, open the monthly heatmap and stats, and switch to the dark theme. Click the animation to open the full video: [demo/demo.mp4](demo/demo.mp4).
+
 A habit tracker with swipe-to-complete, streaks and a monthly calendar heatmap. React Native app (Expo, TypeScript) on a small Node.js + TypeScript REST API with PostgreSQL. Demo project with fake data.
 
 ## Tech stack
@@ -54,29 +60,64 @@ cd app && npm test             # heatmap grid
 
 ## Code flow
 
-```
-Phone app (Expo Go)                       Backend (Node + Express)            PostgreSQL
--------------------                       -------------------------           ----------
-Auth screen
-  |-- register / login ---------------->  POST /api/auth/*  --> JWT ------->  app_user
-  |-- token kept in Secure Store
-Today screen
-  |-- list with pull-to-refresh ------>   GET /api/habits?today=<local day>
-  |-- swipe right: optimistic done ---->  POST /habits/{id}/complete
-                                           unique (habit, day): retries safe
-                                           server rejects future dates  --->  habit, completion
-Habit detail
-  |-- streaks + month heatmap -------->   GET /habits/{id}/stats?today=...
-                                           streaks computed on local days
-Add habit
-  |-- validated form + colour picker -->  POST /api/habits
-Settings
-  |-- Light / Dark / Match phone  (saved on device, no API call)
+### Backend
+
+```mermaid
+flowchart LR
+    App["Expo app<br/>api.ts"] -->|"HTTPS + Bearer JWT"| Express["Express app"]
+    Express --> Auth["routes/auth.ts<br/>register, login (bcrypt, JWT)"]
+    Express --> Mw["auth middleware<br/>verify JWT, set user"]
+    Mw --> Habits["routes/habits.ts<br/>zod validation"]
+    Habits --> Streaks["streaks.ts<br/>current + best streak"]
+    Auth --> DB[("PostgreSQL<br/>app_user, habit, completion")]
+    Habits --> DB
 ```
 
-The client sends its own local "today" because only the device knows the user's
-time zone. The server still validates the date (format, not in the future), so
-the client chooses the day but cannot forge it.
+Completing a habit for a day:
+
+```mermaid
+sequenceDiagram
+    participant App as Today screen
+    participant API as POST /habits/{id}/complete
+    participant DB as PostgreSQL
+    App->>App: show the row as done (optimistic)
+    App->>API: { date: local day }
+    API->>API: validate date (format, not in the future)
+    API->>DB: insert completion, unique (habit, day)
+    alt saved or already saved
+        API-->>App: 200 done
+    else rejected or network error
+        API-->>App: error
+        App->>App: roll the row back, show the error
+    end
+```
+
+Reading streaks: the app sends its own local "today", the server validates it, loads the completed days for the habit and `streaks.ts` computes the current and best streak on those calendar days.
+
+### Frontend
+
+```mermaid
+flowchart TD
+    Boot["App.tsx<br/>load saved token"] --> Q{"Signed in?"}
+    Q -- no --> Auth["AuthScreen<br/>register / log in"]
+    Auth -->|"token saved"| Tabs
+    Q -- yes --> Tabs["Main tabs"]
+    Tabs --> Today["TodayScreen<br/>habit list, swipe or hold to complete"]
+    Tabs --> Stats["StatsScreen<br/>streaks per habit"]
+    Tabs --> Settings["SettingsScreen<br/>theme, log out"]
+    Today -->|"+"| Add["AddHabitScreen<br/>name + colour"]
+    Today -->|"tap a habit"| Detail["HabitDetailScreen<br/>streaks + month heatmap"]
+    Detail -->|"Edit habit"| Add
+```
+
+```mermaid
+flowchart LR
+    Screen["Screen"] --> Api["api.ts<br/>adds Bearer token"]
+    Api -->|"fetch"| Backend["Express API"]
+    Api --> Store["Secure Store (token)"]
+    Screen --> Theme["theme.tsx<br/>Light / Dark / Match phone<br/>kept in AsyncStorage"]
+    Screen --> Heat["heatmap.ts<br/>Monday-first month grid"]
+```
 
 ## Repo layout
 
@@ -86,6 +127,7 @@ the client chooses the day but cannot forge it.
 | `backend/` | Express API (routes, streak logic, migrations) |
 | `backend/migrations/` | Database schema |
 | `scripts/` | One-command setup and run |
+| `demo/` | Demo video (`demo.mp4`) and preview animation |
 | `.github/workflows/` | CI: backend tests, app typecheck and tests |
 
 ## Notes
