@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: habitcanvas
+      POSTGRES_PASSWORD: habitcanvas
+      POSTGRES_DB: habitcanvas
+    ports:
+      - "5432:5432"
