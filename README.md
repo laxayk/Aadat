@@ -4,7 +4,7 @@
   <a href="demo/demo.mp4"><img src="demo/demo.gif" alt="Aadat demo" width="300"></a>
 </p>
 
-Demo walkthrough: sign up, add habits, see streaks, press and hold to complete a habit, open the monthly heatmap and stats, and switch to the dark theme. Click the animation to open the full video: [demo/demo.mp4](demo/demo.mp4).
+Demo walkthrough: sign up, add habits, see streaks, press and hold to complete a habit, open the monthly heatmap and stats, and switch to the dark theme. Click the animation to open the full video: [demo/demo.mp4](demo/demo.mp4). The earlier streak history shown in the demo (22 to 29 October) is seeded sample data added through the API so the streaks and heatmap have something to show; the sign-up, habits, long-press completion and settings are done live in the app.
 
 A habit tracker with swipe-to-complete, streaks and a monthly calendar heatmap. React Native app (Expo, TypeScript) on a small Node.js + TypeScript REST API with PostgreSQL. Demo project with fake data.
 
