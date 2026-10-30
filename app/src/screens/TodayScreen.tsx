@@ -42,6 +42,10 @@ export default function TodayScreen({ navigation }: any) {
     try {
       await api(`/api/habits/${habit.id}/complete`, { method: 'POST', body: JSON.stringify({ date: today }) });
     } catch {
+      // Roll the optimistic flip back first - nothing was saved, so the row must
+      // not keep showing done. Then refresh from the server if it is reachable.
+      setHabits((cur) => cur?.map((h) => (h.id === habit.id ? { ...h, doneToday: false, currentStreak: h.currentStreak - 1 } : h)) ?? cur);
+      setError('Could not save that. Check your connection and try again.');
       load();
     }
   };
