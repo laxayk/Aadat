@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "HabitCanvas",
-    "slug": "habitcanvas",
+    "name": "Aadat",
+    "slug": "aadat",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "scheme": "habitcanvas",
+    "scheme": "aadat",
     "ios": { "supportsTablet": true },
     "android": {},
     "extra": {

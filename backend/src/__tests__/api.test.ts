@@ -34,7 +34,7 @@ beforeAll(async () => {
   }
 });
 
-describe('habitcanvas api', () => {
+describe('aadat api', () => {
   it('register, login, and wrong password refused', async () => {
     const token = await register('a@example.com');
     expect(token).toBeTruthy();

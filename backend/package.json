@@ -1,8 +1,8 @@
 {
-  "name": "habitcanvas-backend",
+  "name": "aadat-backend",
   "version": "0.1.0",
   "private": true,
-  "description": "HabitCanvas REST API: habits, completions and streaks",
+  "description": "Aadat REST API: habits, completions and streaks",
   "type": "module",
   "engines": { "node": ">=20" },
   "scripts": {

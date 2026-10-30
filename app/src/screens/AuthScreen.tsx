@@ -34,7 +34,7 @@ export default function AuthScreen({ onSignedIn }: { onSignedIn: () => void }) {
   return (
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, justifyContent: 'center' }}>
-        <Title>HabitCanvas</Title>
+        <Title>Aadat</Title>
         {error ? <ErrorBox message={error} /> : null}
         <Field label="Email" value={email} onChange={setEmail} placeholder="you@example.com" keyboardType="email-address" />
         {mode === 'register' ? <Field label="Your name" value={name} onChange={setName} placeholder="Asha" /> : null}

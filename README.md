@@ -1,4 +1,4 @@
-# HabitCanvas
+# Aadat
 
 A habit tracker with swipe-to-complete, streaks and a monthly calendar heatmap. React Native app (Expo, TypeScript) on a small Node.js + TypeScript REST API with PostgreSQL. Demo project with fake data.
 

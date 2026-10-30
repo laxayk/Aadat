@@ -54,7 +54,7 @@ const ThemeContext = createContext<ThemeState>({
   choice: 'system', resolved: 'light', colors: lightPalette, setChoice: () => {},
 });
 
-const STORAGE_KEY = 'habitcanvas.theme';
+const STORAGE_KEY = 'aadat.theme';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const system = useColorScheme() === 'dark' ? 'dark' : 'light';
