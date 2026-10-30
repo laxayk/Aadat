@@ -1,4 +1,6 @@
-import { sign, verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+
+const { sign, verify } = jwt;
 import type { NextFunction, Request, Response } from 'express';
 import { config } from './config.js';
 
