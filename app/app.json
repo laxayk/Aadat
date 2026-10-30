@@ -6,10 +6,15 @@
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "scheme": "aadat",
-    "ios": { "supportsTablet": true },
+    "ios": {
+      "supportsTablet": true
+    },
     "android": {},
     "extra": {
       "apiUrl": "http://localhost:8081"
-    }
+    },
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }
