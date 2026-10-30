@@ -67,6 +67,7 @@ describe('aadat api', () => {
     const list = await request(app).get('/api/habits?today=2026-10-30').set(auth(mine));
     expect(list.body).toHaveLength(1);
     expect(list.body[0].doneToday).toBe(false);
+    expect(new Date(list.body[0].createdAt).getTime()).not.toBeNaN();
   });
 
   it('complete is idempotent and feeds streaks', async () => {

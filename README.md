@@ -4,9 +4,9 @@
   <a href="demo/demo.mp4"><img src="demo/demo.gif" alt="Aadat demo" width="300"></a>
 </p>
 
-Demo walkthrough: sign up, add habits, see streaks, press and hold to complete a habit, open the monthly heatmap and stats, and switch to the dark theme. Click the animation to open the full video: [demo/demo.mp4](demo/demo.mp4). The earlier streak history shown in the demo (22 to 29 October) is seeded sample data added through the API so the streaks and heatmap have something to show; the sign-up, habits, long-press completion and settings are done live in the app.
+Demo walkthrough: splash, sign up, add habits, check them off, open a habit's streak and month view, see the Overall screen, and switch between the light and dark themes. Click the animation to open the full video: [demo/demo.mp4](demo/demo.mp4). The history from 22 to 29 October shown in the demo is sample data added through the API so the streaks and the Overall screen have something to show. Everything else is done live in the app. It is recorded from the Expo web build in a phone-sized window.
 
-A habit tracker with swipe-to-complete, streaks and a monthly calendar heatmap. React Native app (Expo, TypeScript) on a small Node.js + TypeScript REST API with PostgreSQL. Demo project with fake data.
+A habit tracker with a week strip, compact habit rows, streaks and an Overall screen with a month calendar and monthly rate. React Native app (Expo, TypeScript) on a small Node.js + TypeScript REST API with PostgreSQL. Demo project with fake data.
 
 ## Tech stack
 
@@ -98,12 +98,12 @@ Reading streaks: the app sends its own local "today", the server validates it, l
 
 ```mermaid
 flowchart TD
-    Boot["App.tsx<br/>load saved token"] --> Q{"Signed in?"}
+    Boot["Splash, then App.tsx<br/>load saved token"] --> Q{"Signed in?"}
     Q -- no --> Auth["AuthScreen<br/>register / log in"]
     Auth -->|"token saved"| Tabs
     Q -- yes --> Tabs["Main tabs"]
     Tabs --> Today["TodayScreen<br/>habit list, swipe or hold to complete"]
-    Tabs --> Stats["StatsScreen<br/>streaks per habit"]
+    Tabs --> Stats["StatsScreen (Overall)<br/>month calendar, rate, perfect days"]
     Tabs --> Settings["SettingsScreen<br/>theme, log out"]
     Today -->|"+"| Add["AddHabitScreen<br/>name + colour"]
     Today -->|"tap a habit"| Detail["HabitDetailScreen<br/>streaks + month heatmap"]
@@ -118,6 +118,10 @@ flowchart TD
     Screen --> Theme["theme.tsx<br/>Light / Dark / Match phone<br/>kept in AsyncStorage"]
     Screen --> Heat["heatmap.ts<br/>Monday-first month grid"]
 ```
+
+### How the Overall numbers are counted
+
+`app/src/tracking.ts` holds the logic and `app/src/__tests__/tracking.test.ts` tests it. A habit is tracked from the day it was created, or from an earlier recorded check-in if history was added for earlier days. Days before that are not counted as misses. Days after that with no check-in are counted as misses, including days before the first check-in. The monthly rate is check-ins divided by tracked habit-days in the current month. Perfect days are days when every habit that had started was checked off. The API returns each habit's `createdAt` so the app can do this.
 
 ## Repo layout
 

@@ -75,6 +75,7 @@ habitsRouter.get('/', async (req: AuthedRequest, res) => {
         name: h.name,
         color: h.color,
         icon: h.icon,
+        createdAt: new Date(h.created_at).toISOString(),
         doneToday: doneDays.includes(today),
         currentStreak: currentStreak(doneDays, today),
         bestStreak: bestStreak(doneDays),

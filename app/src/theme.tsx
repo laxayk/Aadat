@@ -18,29 +18,29 @@ export interface Palette {
 }
 
 export const lightPalette: Palette = {
-  bg: '#F5F6FB',
+  bg: '#FAF6F1',
   surface: '#FFFFFF',
-  surfaceAlt: '#EBEDF7',
-  text: '#191B28',
-  textMuted: '#696D80',
-  accent: '#4A54C4',
+  surfaceAlt: '#F1E9E0',
+  text: '#2A1A10',
+  textMuted: '#8A6F5C',
+  accent: '#F2622E',
   accentText: '#FFFFFF',
-  done: '#2E9E5B',
-  border: '#DEE1EE',
-  danger: '#C44A4A',
+  done: '#2F9E62',
+  border: '#EBE3DA',
+  danger: '#C43D3D',
 };
 
 export const darkPalette: Palette = {
-  bg: '#14161F',
-  surface: '#1E2130',
-  surfaceAlt: '#282C3E',
-  text: '#F2F3F8',
-  textMuted: '#9BA0B5',
-  accent: '#8F98FF',
-  accentText: '#14161F',
-  done: '#4CC47C',
-  border: '#31364B',
-  danger: '#E07A7A',
+  bg: '#1B1310',
+  surface: '#2A1E19',
+  surfaceAlt: '#3A2A22',
+  text: '#FBEFE3',
+  textMuted: '#C2A593',
+  accent: '#FF8352',
+  accentText: '#2A1209',
+  done: '#4FC885',
+  border: '#43322A',
+  danger: '#F08080',
 };
 
 interface ThemeState {
@@ -82,4 +82,4 @@ export function useTheme() {
 }
 
 /** The four habit colours from the design plan. */
-export const HABIT_COLORS = ['#2E9E5B', '#E8913A', '#4A54C4', '#C44A8A'];
+export const HABIT_COLORS = ['#F2622E', '#E9A100', '#1F9C8F', '#B0408F'];

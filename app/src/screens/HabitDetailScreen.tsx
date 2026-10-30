@@ -44,31 +44,39 @@ export default function HabitDetailScreen({ route, navigation }: any) {
       <BackHeader title={name} />
       {error ? <ErrorBox message={error} /> : null}
       <TouchableOpacity onPress={() => navigation.navigate('AddHabit', { habit: stats ?? { id: habitId, name, color } })}>
-        <RNText style={{ color: colors.accent, fontWeight: '700', marginBottom: 10 }}>Edit habit</RNText>
+        <RNText style={{ color: colors.accent, fontWeight: '800', marginBottom: 14, fontSize: 15 }}>Edit habit</RNText>
       </TouchableOpacity>
+      <View style={{ flexDirection: 'row', gap: 12, marginBottom: 14 }}>
+        <View style={{ flex: 1, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border, padding: 16 }}>
+          <Text style={{ color: colors.textMuted, fontWeight: '700', fontSize: 12, letterSpacing: 0.6 }}>CURRENT STREAK</Text>
+          <Text style={{ fontSize: 36, fontWeight: '800', color: colors.text, letterSpacing: -1 }}>{stats?.currentStreak ?? 0}</Text>
+          <Text style={{ color: colors.textMuted, fontWeight: '600' }}>{(stats?.currentStreak ?? 0) === 1 ? 'day' : 'days'}</Text>
+        </View>
+        <View style={{ flex: 1, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border, padding: 16 }}>
+          <Text style={{ color: colors.textMuted, fontWeight: '700', fontSize: 12, letterSpacing: 0.6 }}>BEST STREAK</Text>
+          <Text style={{ fontSize: 36, fontWeight: '800', color: colors.text, letterSpacing: -1 }}>{stats?.bestStreak ?? 0}</Text>
+          <Text style={{ color: colors.textMuted, fontWeight: '600' }}>{(stats?.bestStreak ?? 0) === 1 ? 'day' : 'days'}</Text>
+        </View>
+      </View>
       <Card>
-        <Text style={{ fontSize: 34, fontWeight: '800', color }}>{stats?.currentStreak ?? 0} days</Text>
-        <Text style={{ color: colors.textMuted }}>Current streak · best {stats?.bestStreak ?? 0}</Text>
-      </Card>
-      <Card>
-        <Text style={{ color: colors.textMuted, fontWeight: '600', marginBottom: 8 }}>{month}</Text>
+        <Text style={{ color: colors.text, fontWeight: '800', fontSize: 17, marginBottom: 10 }}>{new Date(month + '-01T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           {WEEKDAYS.map((d, i) => (
             <View key={`w${i}`} style={{ width: '14.28%', alignItems: 'center', marginBottom: 4 }}>
-              <Text style={{ color: colors.textMuted, fontSize: 11 }}>{d}</Text>
+              <Text style={{ color: colors.textMuted, fontSize: 12, fontWeight: '700' }}>{d}</Text>
             </View>
           ))}
           {cells.map((c, i) => (
-            <View key={i} style={{ width: '14.28%', alignItems: 'center', paddingVertical: 3 }}>
+            <View key={i} style={{ width: '14.28%', alignItems: 'center', paddingVertical: 4 }}>
               {c.date ? (
                 <View style={{
-                  width: 26, height: 26, borderRadius: 7, alignItems: 'center', justifyContent: 'center',
+                  width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center',
                   backgroundColor: c.done ? color : colors.surfaceAlt,
                 }}>
-                  <Text style={{ fontSize: 11, color: c.done ? '#FFFFFF' : colors.textMuted }}>{Number(c.date.slice(8))}</Text>
+                  <Text style={{ fontSize: 13, fontWeight: '700', color: c.done ? '#FFFFFF' : colors.textMuted }}>{Number(c.date.slice(8))}</Text>
                 </View>
               ) : (
-                <View style={{ width: 26, height: 26 }} />
+                <View style={{ width: 34, height: 34 }} />
               )}
             </View>
           ))}

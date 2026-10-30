@@ -35,23 +35,23 @@ export default function AddHabitScreen({ route, navigation }: any) {
       <BackHeader title={existing ? 'Edit habit' : 'New habit'} />
       {error ? <ErrorBox message={error} /> : null}
       <Field label="Name" value={name} onChange={setName} placeholder="Read 20 min" error={error ?? undefined} />
-      <Text style={{ color: colors.textMuted, fontWeight: '600', marginBottom: 6 }}>Colour</Text>
+      <Text style={{ color: colors.textMuted, fontWeight: '700', marginBottom: 8 }}>Colour</Text>
       <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16 }}>
         {HABIT_COLORS.map((c) => (
           <TouchableOpacity
             key={c}
             onPress={() => setColor(c)}
             style={{
-              width: 40, height: 40, borderRadius: 20, backgroundColor: c,
+              width: 52, height: 52, borderRadius: 26, backgroundColor: c,
               borderWidth: 3, borderColor: color === c ? colors.text : 'transparent',
             }}
           />
         ))}
       </View>
-      <Text style={{ color: colors.textMuted, fontWeight: '600', marginBottom: 6 }}>Repeat</Text>
+      <Text style={{ color: colors.textMuted, fontWeight: '700', marginBottom: 8 }}>Repeat</Text>
       <View style={{
-        borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface,
-        borderRadius: 10, paddingHorizontal: 12, paddingVertical: 12, marginBottom: 16,
+        borderWidth: 2, borderColor: colors.border, backgroundColor: colors.surface,
+        borderRadius: 16, paddingHorizontal: 16, paddingVertical: 14, marginBottom: 16,
       }}>
         <Text style={{ color: colors.textMuted }}>Every day</Text>
       </View>

@@ -15,6 +15,7 @@
     },
     "plugins": [
       "expo-asset"
-    ]
+    ],
+    "icon": "./assets/logo.png"
   }
 }
