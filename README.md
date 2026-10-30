@@ -63,7 +63,7 @@ cd app && npm test             # heatmap grid
 ### Backend
 
 ```mermaid
-flowchart LR
+flowchart TD
     App["Expo app<br/>api.ts"] -->|"HTTPS + Bearer JWT"| Express["Express app"]
     Express --> Auth["routes/auth.ts<br/>register, login (bcrypt, JWT)"]
     Express --> Mw["auth middleware<br/>verify JWT, set user"]
@@ -111,7 +111,7 @@ flowchart TD
 ```
 
 ```mermaid
-flowchart LR
+flowchart TD
     Screen["Screen"] --> Api["api.ts<br/>adds Bearer token"]
     Api -->|"fetch"| Backend["Express API"]
     Api --> Store["Secure Store (token)"]
